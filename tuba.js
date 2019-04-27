@@ -37,15 +37,12 @@ var fuelFieldset = document.getElementsByTagName("fieldset")[3];
             if (!(acresBox.value > 0)) {
                 throw "Please enter a number of acres greater than 0.";
             }
-        }
-        catch(message) {
+        } catch (message) {
             validity = false;
             messageText = message;
             // remove erroneous entry from input box
             acresBox.value = "";
-        }
-
-        finally {
+        } finally {
             acresComplete = validity;
             // remove former recommendation
             messageElement.innerHTML = messageText;
@@ -59,7 +56,7 @@ function verifyCrops() {
     try {
         for (var i = 0; i < 7; i++) {
             if (cropsFieldset.getElementsByTagName("input")[i].checked) {
-                cropscomplete = true;
+                cropsComplete = true;
                 messageElement.innerHTML = "";
                 testFormCompleteness();
                 i = 8;
@@ -68,8 +65,7 @@ function verifyCrops() {
         if (i === 7) {
             throw "Please select at least one crop.";
         }
-    }
-    catch(message) {
+    } catch (message) {
         cropsComplete = false;
         messageHeadElement.innerHTML = "";
         messageElement.innerHTML = message;
@@ -84,14 +80,12 @@ function verifyMonths() {
         if (!(monthsBox.value >= 1 && monthsBox.value <= 12)) {
             throw "Please enter a number of months between 1 and 12.";
         }
-    }
-    catch(message) {
+    } catch (message) {
         validity = false;
         messageText = message;
         // remove erroneous entry from input box
         monthsBox.value = "";
-    }
-    finally {
+    } finally {
         monthsComplete = validity;
         // remove former recommendation
         messageElement.innerHTML = messageText;
@@ -115,7 +109,7 @@ function testFormCompleteness() {
 /* generate tractor recommendation based on user selections */
 function createRecommendation() {
     if (acresBox.value <= 5000) { // 5000 acres or less, no crop test needed
-        if (monthsBox.value <= 10) { // 10+ months of farming per year
+        if (monthsBox.value >= 10) { // 10+ months of farming per year
             messageHeadElement.innerHTML = "E3250";
             messageElement.innerHTML = "A workhorse for a small farm or a big backyard. A medium- to heavy-duty tractor that can haul whatever you throw at it year-round.";
         } else { // 9 or fewer months per year
